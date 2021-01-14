@@ -217,6 +217,7 @@
   line-height: 15px;
   letter-spacing: -0.015em;
   margin-right: 5px;
+  margin-left: 5px;
 }
 
 .order-summary-total {
@@ -226,6 +227,8 @@
   letter-spacing: -0.015em;
   color: #FFF;
   display: block;
+
+  margin-left: 5px;
 }
 
 .order-summary-price {
