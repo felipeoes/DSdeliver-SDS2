@@ -37,7 +37,7 @@ function Home() {
 
 const styles = StyleSheet.create({
     container: {
-          marginTop: '5%',
+          marginTop: '30%',
           alignItems: 'center'
         },
         title: {

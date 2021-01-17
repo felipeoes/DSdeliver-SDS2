@@ -59,6 +59,7 @@ function OrderDetails( { route }: Props) {
 
 const styles = StyleSheet.create({
         container: {
+          paddingTop: '5%',
           paddingRight: '5%',
           paddingLeft: '5%'
         },
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
           backgroundColor: '#DA5C5C',
           flexDirection: 'row',
           borderRadius: 10,
-          marginTop: 40,
+          marginTop: 20,
           alignItems: 'center',
           justifyContent: 'center'
         },

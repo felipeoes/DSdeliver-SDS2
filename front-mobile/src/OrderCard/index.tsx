@@ -14,6 +14,13 @@ type Props = {
     order: Order;
 }
 
+function getTotalAmount(order: Order ) {
+    let amount = 0.0;
+    order.products.map(product => amount = amount + 1)
+
+    return amount;
+}
+
 function dateFromNow(date: string) {
     return dayjs(date).fromNow();
 }
@@ -39,8 +46,12 @@ function OrderCard( { order }: Props) {
        <Text style={styles.text}>{dateFromNow(order.moment)}</Text>
        <View style={styles.productsList}>
         {order.products.map(product => (
-            <Text key={product.id} style={styles.text}>{product.name}</Text>
+            <Text key={product.id} style={styles.text}>
+              <Text style={styles.textAmount}>1x </Text>
+              {product.name}
+            </Text>
         ))}
+        <Text style={styles.textTotalAmount}>Quantidade total de itens: { getTotalAmount(order) }</Text>
        </View>
     </View>
     </>
@@ -65,6 +76,19 @@ const styles = StyleSheet.create({
         header: {
           flexDirection: 'row',
           justifyContent: 'space-between'
+        },
+        textAmount: {
+          fontWeight: 'normal',
+          fontSize: 12,
+        },
+        textTotalAmount: {  
+          paddingTop: '5%',
+          fontWeight: 'normal',
+          fontSize: 16,
+          lineHeight: 19,
+          letterSpacing: -0.24,
+          color: '#263238',
+          fontFamily: 'OpenSans_400Regular'
         },
         text: {
           fontWeight: 'normal',
