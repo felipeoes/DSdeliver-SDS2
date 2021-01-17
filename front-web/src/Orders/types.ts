@@ -4,6 +4,7 @@ export type Product = {
     price: number;
     description: string;
     imageUri: string;
+    amount: number;
 }
 
 export type OrderLocationData = {

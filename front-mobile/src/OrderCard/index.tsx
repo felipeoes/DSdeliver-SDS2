@@ -48,7 +48,7 @@ function OrderCard( { order }: Props) {
         {order.products.map(product => (
             <Text key={product.id} style={styles.text}>
               <Text style={styles.textAmount}>1x </Text>
-              {product.name}
+              {product.name}   {formatPrice(product.price)}
             </Text>
         ))}
         <Text style={styles.textTotalAmount}>Quantidade total de itens: { getTotalAmount(order) }</Text>

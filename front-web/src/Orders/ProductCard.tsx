@@ -3,12 +3,12 @@ import { Product } from './types';
 
 type Props = {
     product: Product;
+    amount: number;
     onSelectProduct: (product: Product) => void;
     isSelected: boolean;
 }
 
-
-function ProductCard( { product, onSelectProduct, isSelected }: Props) {
+function ProductCard( { product, onSelectProduct, isSelected, }: Props) {
     return (
         <div 
         className={`order-card-container ${isSelected ? 'selected' : ''}`}

@@ -1,6 +1,8 @@
 package com.devsuperior.dsdeliver.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ public class Product implements Serializable {
 	private Double price;
 	private String description;
 	private String imageUri;
+	private Double amount;
 	
 	public Product() {}
 
@@ -31,6 +34,7 @@ public class Product implements Serializable {
 		this.price = price;
 		this.description = description;
 		this.imageUri = imageUri;
+		this.amount = amount;
 	}
 
 	public Long getId() {
@@ -72,7 +76,15 @@ public class Product implements Serializable {
 	public void setImageUri(String imageUri) {
 		this.imageUri = imageUri;
 	}
+	
+	public Double getAmount() {
+		return amount;
+	}
 
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

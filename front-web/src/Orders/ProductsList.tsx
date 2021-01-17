@@ -8,7 +8,6 @@ type Props = {
     onSelectProduct: (product: Product) => void;
 }
 
-
 function ProductsList( { products, onSelectProduct, selectedProducts }: Props) {
     return (
         <div className="orders-list-container">
@@ -19,6 +18,7 @@ function ProductsList( { products, onSelectProduct, selectedProducts }: Props) {
                     product={product} 
                     onSelectProduct={onSelectProduct}
                     isSelected={checkIsSelected(selectedProducts, product)}
+                    amount = {product.amount}
                     />
                 ))}
             </div>
