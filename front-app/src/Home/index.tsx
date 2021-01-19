@@ -15,7 +15,10 @@ function Home() {
     <>
       <Header />
       <View style={styles.container}>
-        <Image source={require('../assets/deliveryman.png')} />
+        <Image style={styles.image}
+        source={require('../assets/homeapp.png') } 
+        >
+        </Image>
         <Text style={styles.title}>
           Peça sua refeição e {'\n'} receba no prazo indicado
       </Text>
@@ -37,7 +40,7 @@ function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: '30%',
+    marginTop: '15%',
     alignItems: 'center'
   },
   title: {
@@ -54,6 +57,12 @@ const styles = StyleSheet.create({
     marginTop: 15,
     lineHeight: 22,
     textAlign: 'center'
+  },
+  image: {
+    height: 310,
+    width: 310,
+    // aspectRatio: 2, 
+    resizeMode: 'contain',
   },
   footer: {
     marginTop: '5%',
