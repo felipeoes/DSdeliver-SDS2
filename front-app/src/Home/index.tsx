@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   image: {
     height: 310,
     width: 310,
-    // aspectRatio: 2, 
     resizeMode: 'contain',
   },
   footer: {

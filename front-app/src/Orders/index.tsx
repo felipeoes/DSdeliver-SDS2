@@ -1,21 +1,26 @@
-import "./styles.css";
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { fetchProducts } from '../api';
+import Header from '../Header';
+import { checkIsSelected } from '../helpers';
+import ProductCard from '../ProductCard';
+import ProductsList from '../ProductsList';
+import { Product } from '../types';
+import StepsHeader from '../StepsHeader'
 import { toast } from 'react-toastify';
-import StepsHeader from "./StepsHeader";
-import ProductsList from "./ProductsList";
-import OrderSummary from "./OrderSummary";
-import React, { useEffect, useState } from "react";
-import { OrderLocationData, Product } from "./types";
-import { fetchProducts, saveOrder } from "../api";
-// import OrderLocation from "./OrderLocation";
-import { checkIsSelected } from "./helpers";
+
+type Props = {
+  products: Product[];
+  selectedProducts: Product[];
+  onSelectProduct: (product: Product) => void;
+}
 
 function Orders() {
+  const navigation = useNavigation();
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
-  const [orderLocation, setOrderLocation] = useState<OrderLocationData>();
-  const totalPrice = selectedProducts.reduce((sum, item) => {
-      return sum + item.price;
-  }, 0);
 
   useEffect(() => {
     fetchProducts()
@@ -24,7 +29,12 @@ function Orders() {
         toast.warning('Erro ao listar produtos');
       })
   }, []);
+  
+  const handleOnPress = () => {
+    navigation.navigate('Orders');
+  }
 
+  
 
   const handleSelectProduct = (product: Product) => {
     const isAlreadySelected = checkIsSelected(selectedProducts, product);
@@ -37,42 +47,27 @@ function Orders() {
     }
   }
 
-  const handleSubmit = () => {
-    const productsIds = selectedProducts.map(({ id }) => ({ id }));
-    const payload = {
-      ...orderLocation!,
-      products: productsIds
-    }
-
-    saveOrder(payload).then((response) => {
-        toast.error(`Pedido enviado com sucesso! Nº ${response.data.id}`);
-        setSelectedProducts([]);
-      })
-        .catch(() => {
-          toast.warning('Erro ao enviar pedido');
-        })
-    }
-
   return (
     <>
-      <div className="orders-container">
-        <StepsHeader />
-        <ProductsList 
+      <Header />
+      <StepsHeader />
+      <View style={styles.container}>
+      <ProductsList 
         products={products} 
         onSelectProduct={handleSelectProduct}
         selectedProducts={selectedProducts}
         />
-        {/* <OrderLocation
-          onChangeLocation={(location) => setOrderLocation(location)}
-        /> */}
-        <OrderSummary 
-        amount={selectedProducts.length} 
-        totalPrice={totalPrice} 
-        onSubmit={handleSubmit}
-        />
-      </div>
+      </View> 
+
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingRight: '5%',
+    paddingLeft: '5%',
+  },
+});
 
 export default Orders;
