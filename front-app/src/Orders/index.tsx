@@ -65,6 +65,7 @@ function Orders() {
 
 const styles = StyleSheet.create({
   container: {
+    marginLeft: 10,
     paddingRight: '5%',
     paddingLeft: '5%',
   },

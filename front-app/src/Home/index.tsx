@@ -11,6 +11,10 @@ function Home() {
     navigation.navigate('Orders');
   }
 
+  const handleOnFlex = () => {
+    navigation.navigate('TesteFlex');
+  }
+
   return (
     <>
       <Header />
@@ -30,6 +34,12 @@ function Home() {
         <RectButton style={styles.button} onPress={handleOnPress}>
           <Text style={styles.buttonText}>
             FAÇA SEU PEDIDO
+            </Text>
+        </RectButton>
+
+        <RectButton style={styles.button} onPress={handleOnFlex}>
+          <Text style={styles.buttonText}>
+            IR PARA FLEX
             </Text>
         </RectButton>
       </View> 

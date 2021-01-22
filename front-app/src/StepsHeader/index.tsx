@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         lineHeight: 25,
         letterSpacing: -0.015,
         color: '#9e9e9e',
-        marginLeft: '5%'
+        marginLeft: '2%'
       },
     stepsItemStepsNumber: {
         fontSize: 22,

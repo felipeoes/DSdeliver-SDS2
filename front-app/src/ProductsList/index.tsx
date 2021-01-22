@@ -4,13 +4,6 @@ import { Product } from "../types";
 import ProductCard from "../ProductCard";
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { FlatList, SafeAreaView} from "react-native";
-import { render } from 'react-dom';
-import { fetchProducts } from '../api';
-
-let {width} = Dimensions.get('window')
-
-let numberGrid = 2
-let itemWidth = width / numberGrid
 
 type Props = {
     products: Product[];
@@ -24,6 +17,7 @@ function ProductsList ( { products, onSelectProduct, selectedProducts }: Props) 
         <>
       <SafeAreaView>
         <FlatList
+          style={styles.listItems}
           data={createRows(products, columns)}
           keyExtractor={item => item.id}
           numColumns={columns}
@@ -50,13 +44,12 @@ function ProductsList ( { products, onSelectProduct, selectedProducts }: Props) 
   }
 
 function createRows(data, columns) {
-  const rows = Math.floor((data.length / 2) / columns);
-  let lastRowElements = (data.length / 2) - rows * columns;
+  const rows = Math.floor(data.length / columns);
+  let lastRowElements = data.length - rows * columns;
 
   while (lastRowElements !== columns) {
     data.push({
       id: `empty-${lastRowElements}`,
-      name: `empty-${lastRowElements}`,
       empty: true
     });
     lastRowElements += 1;
@@ -66,14 +59,18 @@ function createRows(data, columns) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: "center",
-    },
+  listItems: {
+    marginBottom: '100%'
+  },
   item: {
-    flexBasis: 0,
     flexGrow: 1,
-    margin: 4,
-    padding: 20
+    flexBasis: 0,
+    marginBottom: 2,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 'auto',
+    height: 'auto'
+    
   },
   itemEmpty: {
     backgroundColor: "transparent"
