@@ -4,6 +4,8 @@ import { Product } from "../types";
 import ProductCard from "../ProductCard";
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { FlatList, SafeAreaView} from "react-native";
+import Map from '../Map';
+import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 type Props = {
     products: Product[];
@@ -15,7 +17,6 @@ function ProductsList ( { products, onSelectProduct, selectedProducts }: Props) 
     const columns = 2;
     return (
         <>
-      <SafeAreaView>
         <FlatList
           style={styles.listItems}
           data={createRows(products, columns)}
@@ -37,9 +38,16 @@ function ProductsList ( { products, onSelectProduct, selectedProducts }: Props) 
               </View>
             );
           }}
+          
         />
-      </SafeAreaView>
+        <ScrollView>
+      <Map />
+      </ScrollView>
+      <RectButton>
+        <Text>Enviar pedido</Text>
+        </RectButton>
       </>
+      
     );
   }
 
@@ -60,7 +68,7 @@ function createRows(data, columns) {
 
 const styles = StyleSheet.create({
   listItems: {
-    marginBottom: '100%'
+    marginBottom: '50%'
   },
   item: {
     flexGrow: 1,

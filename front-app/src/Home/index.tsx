@@ -11,8 +11,8 @@ function Home() {
     navigation.navigate('Orders');
   }
 
-  const handleOnFlex = () => {
-    navigation.navigate('TesteFlex');
+  const handleOnMap = () => {
+    navigation.navigate('Map');
   }
 
   return (
@@ -37,9 +37,9 @@ function Home() {
             </Text>
         </RectButton>
 
-        <RectButton style={styles.button} onPress={handleOnFlex}>
+        <RectButton style={styles.button} onPress={handleOnMap}>
           <Text style={styles.buttonText}>
-            IR PARA FLEX
+            IR PARA O MAPA
             </Text>
         </RectButton>
       </View> 

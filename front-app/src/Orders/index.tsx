@@ -10,6 +10,7 @@ import ProductsList from '../ProductsList';
 import { Product } from '../types';
 import StepsHeader from '../StepsHeader'
 import { toast } from 'react-toastify';
+import Map from '../Map';
 
 type Props = {
   products: Product[];
@@ -51,14 +52,13 @@ function Orders() {
     <>
       <Header />
       <StepsHeader />
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
       <ProductsList 
         products={products} 
         onSelectProduct={handleSelectProduct}
         selectedProducts={selectedProducts}
         />
-      </View> 
-
+      </ScrollView>
     </>
   );
 }
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     paddingRight: '5%',
     paddingLeft: '5%',
-  },
+  }
 });
 
 export default Orders;

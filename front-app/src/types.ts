@@ -17,3 +17,10 @@ export type Product = {
         imageUri: string,
         amount: number
 }
+
+export type OrderLocationData = {
+        latitude: number;
+        longitude: number;
+        address: string;
+
+}
