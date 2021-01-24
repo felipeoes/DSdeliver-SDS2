@@ -8,8 +8,9 @@ import { checkIsSelected } from '../helpers';
 import ProductsList from '../ProductsList';
 import {  OrderLocationData, Product } from '../types';
 import StepsHeader from '../StepsHeader'
-import Map from '../OrderLocation';
 import Toast from 'react-native-simple-toast';
+import OrderLocation from '../OrderLocation';
+import OrderSummary from '../OrderSummary';
 
 
 type Props = {
@@ -23,6 +24,9 @@ function Orders() {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [orderLocation, setOrderLocation] = useState<OrderLocationData>();
+  const totalPrice = selectedProducts.reduce((sum, item) => {
+      return sum + item.price;
+  }, 0);
 
   useEffect(() => {
     fetchProducts()
@@ -76,8 +80,14 @@ function Orders() {
         onSelectProduct={handleSelectProduct}
         selectedProducts={selectedProducts}
         />
-        <Map 
+        <OrderLocation 
         onChangeLocation={(location) => setOrderLocation(location)} 
+        />
+
+        <OrderSummary 
+        amount={selectedProducts.length} 
+        totalPrice={totalPrice} 
+        onSubmit={handleSubmit}
         />
       </ScrollView>
     </>
@@ -87,7 +97,6 @@ function Orders() {
 const styles = StyleSheet.create({
   container: {
     marginLeft: 10,
-    // padding: '5%'
     paddingRight: '5%',
     paddingLeft: '5%',
   }

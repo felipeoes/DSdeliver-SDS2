@@ -13,7 +13,7 @@ export default StyleSheet.create({
 
   map: {
     width: '100%',
-    height: 500,
+    height: 400,
     // width: Dimensions.get("window").width,
     // height: Dimensions.get("window").height,
   },
