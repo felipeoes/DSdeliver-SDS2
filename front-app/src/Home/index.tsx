@@ -15,6 +15,10 @@ function Home() {
     navigation.navigate('Map');
   }
 
+  const handleOnModel = () => {
+    navigation.navigate('MapBR');
+  }
+
   return (
     <>
       <Header />
@@ -40,6 +44,12 @@ function Home() {
         <RectButton style={styles.button} onPress={handleOnMap}>
           <Text style={styles.buttonText}>
             IR PARA O MAPA
+            </Text>
+        </RectButton>
+
+        <RectButton style={styles.button} onPress={handleOnModel}>
+          <Text style={styles.buttonText}>
+            IR PARA O MODEL
             </Text>
         </RectButton>
       </View> 

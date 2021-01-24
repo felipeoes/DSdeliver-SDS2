@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { OrderPayload } from "./Orders/types";
+import { OrderPayload } from "./types";
 
 const API_URL = 'https://felipe-sds2-project.herokuapp.com';
 
@@ -9,7 +9,7 @@ export function fetchProducts() {
 
 // IMPLEMENTAÇÃO MAPBOX
 const ACCESS_TOKEN_MAP_BOX =
-"access_token=pk.eyJ1IjoiZmVsaXBlb2VzIiwiYSI6ImNrang5bWtxbjAxa20yd3A0MTVtbnJ1eXkifQ.rfoDt6tAkCzMRDIRS2NGgQ";
+    "access_token=pk.eyJ1IjoiZmVsaXBlb2VzIiwiYSI6ImNrang5bWtxbjAxa20yd3A0MTVtbnJ1eXkifQ.rfoDt6tAkCzMRDIRS2NGgQ";
 
 const mapboxToken = "pk.eyJ1IjoiZmVsaXBlb2VzIiwiYSI6ImNrang5bWtxbjAxa20yd3A0MTVtbnJ1eXkifQ.rfoDt6tAkCzMRDIRS2NGgQ";
 
@@ -22,7 +22,7 @@ export function fetchLocalMapBox(local: string) {
     return axios(`https://api.mapbox.com/geocoding/v5/mapbox.places/${local}.json?access_token=${mapboxToken}`)
 }
 
-// export function saveOrder(payload: OrderPayload) {
-//     return axios.post(`${API_URL}/orders`, payload);
-// }
+export function saveOrder(payload: OrderPayload) {
+    return axios.post(`${API_URL}/orders`, payload);
+}
 

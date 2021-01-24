@@ -4,7 +4,11 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 15,
+    overflow: 'hidden',
+    marginRight: '3%',
+    marginBottom: '5%'
   },
 
   map: {
