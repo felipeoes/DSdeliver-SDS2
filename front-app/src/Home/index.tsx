@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import { RectButton, TouchableOpacity } from 'react-native-gesture-handler';
 import Header from '../Header';
 
 function Home() {
@@ -11,20 +11,12 @@ function Home() {
     navigation.navigate('Orders');
   }
 
-  const handleOnMap = () => {
-    navigation.navigate('Map');
-  }
-
-  const handleOnModel = () => {
-    navigation.navigate('MapBR');
-  }
-
   return (
     <>
       <Header />
       <View style={styles.container}>
         <Image style={styles.image}
-        source={require('../assets/homeapp.png') } 
+          source={require('../assets/homeapp.png')}
         >
         </Image>
         <Text style={styles.title}>
@@ -40,8 +32,7 @@ function Home() {
             FAÇA SEU PEDIDO
             </Text>
         </RectButton>
-      </View> 
-
+      </View>
     </>
   );
 }

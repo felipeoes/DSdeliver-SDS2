@@ -11,7 +11,7 @@ type Props = {
   onSelectProduct: (product: Product) => void;
 }
 
-function ProductsList({ products, onSelectProduct, selectedProducts}: Props) {
+function ProductsList({ products, onSelectProduct, selectedProducts }: Props) {
   const columns = 2;
   return (
     <>
@@ -59,8 +59,6 @@ function createRows(data: any, columns: number) {
 const styles = StyleSheet.create({
   listItems: {
     marginBottom: '2%',
-    // width: '100%',
-    // height: '100%'
   },
   item: {
     flexGrow: 1,

@@ -1,15 +1,15 @@
 import React, { Component, useEffect, useState } from "react";
 import { Alert, Linking, Platform, Text, View } from "react-native";
 import MapView, { Callout, Marker, PROVIDER_GOOGLE, Region } from "react-native-maps";
-import { RectButton, TextInput } from "react-native-gesture-handler";
 import * as Location from "expo-location";
 import styles from "../styles";
 import { fetchLocalMapBox } from "../api";
 import { OrderLocationData } from "../types";
 import { GooglePlaceData, GooglePlaceDetail, GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Geocoder from 'react-native-geocoding';
+import { GOOGLE_PLAY_API } from '@env';
 
-Geocoder.init("AIzaSyAq0nnpECWQmPIJl2plKaTejxAvtQStLas", {language : "pt-br"});
+Geocoder.init(GOOGLE_PLAY_API, { language: "pt-br" });
 
 const initialRegion = {
   latitude: -23.5063752,
@@ -51,30 +51,31 @@ function OrderLocation({ onChangeLocation }: Props) {
 
   const handleChangeRegion = (data: GooglePlaceData, details: GooglePlaceDetail) => {
     Geocoder.from(details.adr_address)
-            .then(json => {
-            var location = json.results[0].geometry.location;
-            console.log(location);
-            setRegion({latitude: location.lat, longitude: location.lng, latitudeDelta: 0.079, longitudeDelta: 0.08});
-            setAddress({
-              label: details.formatted_address,
-              position: {
-              latitude: location.lat,
-              longitude: location.lng,
-            }});
-            onChangeLocation({
-              latitude: location.lat,
-              longitude: location.lng,
-              address: details.formatted_address
-            });
-            })
-            .catch(error => console.warn(error));
+      .then(json => {
+        var location = json.results[0].geometry.location;
+        console.log(location);
+        setRegion({ latitude: location.lat, longitude: location.lng, latitudeDelta: 0.0079, longitudeDelta: 0.008 });
+        setAddress({
+          label: details.formatted_address,
+          position: {
+            latitude: location.lat,
+            longitude: location.lng,
+          }
+        });
+        onChangeLocation({
+          latitude: location.lat,
+          longitude: location.lng,
+          address: details.formatted_address
+        });
+      })
+      .catch(error => console.warn(error));
   };
 
   const getCurrentPosition = async () => {
     let { status } = await Location.requestPermissionsAsync();
 
     if (status !== "granted") {
-      Alert.alert("Ops!", "Permissão de acesso a localização negada.");
+      Alert.alert("Permissão de acesso à localização negada.");
     }
 
     let {
@@ -101,9 +102,9 @@ function OrderLocation({ onChangeLocation }: Props) {
           placeholder="Digite o endereço de entrega..."
           onPress={(data, details) => {
             handleChangeRegion(data, details as GooglePlaceDetail)
-          } }
+          }}
           query={{
-            key: "AIzaSyAq0nnpECWQmPIJl2plKaTejxAvtQStLas",
+            key: GOOGLE_PLAY_API,
             language: "pt",
             components: 'country:br'
           }}
@@ -117,7 +118,6 @@ function OrderLocation({ onChangeLocation }: Props) {
             autoCapitalize: "none",
             autoCorrect: false,
           }}
-          listViewDisplayed={searchFocused}
           fetchDetails
           enablePoweredByContainer={false}
           styles={{
@@ -166,7 +166,7 @@ function OrderLocation({ onChangeLocation }: Props) {
               shadowOpacity: 0.1,
               shadowOffset: { x: 0, y: 0 },
               shadowRadius: 15,
-              marginTop: 10,
+              marginTop: '15%',
               position: 'absolute',
               zIndex: 999
             },
@@ -201,16 +201,10 @@ function OrderLocation({ onChangeLocation }: Props) {
             title={address.label}
             tracksViewChanges
             tracksInfoWindowChanges
-            >
+          >
           </Marker>
         </MapView>
-
-
-        {/* <RectButton style={styles.searchUserButton} onPress={handleChangeSelect}>
-          <FontAwesome name="github" size={24} color="#fff" />
-        </RectButton> */}
       </View>
-
     </>
   );
 }

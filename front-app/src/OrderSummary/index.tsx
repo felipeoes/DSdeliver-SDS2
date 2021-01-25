@@ -19,7 +19,12 @@ function OrderSummary({ totalPrice, onSubmit, amount }: Props) {
             ITENS SELECIONADOS
           </Text>
           <Text style={styles.orderSummaryTotal}>
-            VALOR TOTAL DE
+            <Text style={{
+              fontWeight: 'normal',
+              fontSize: 12,
+              lineHeight: 15,
+              letterSpacing: -0.015
+            }}>VALOR TOTAL DE</Text>
             <Text style={styles.amountSelected}>
               <Text style={styles.amountTotal}> {formatPrice(totalPrice)}</Text>
             </Text>
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.015,
     paddingLeft: 10
   },
-  
+
   amountSelected: {
     fontWeight: 'bold',
     fontSize: 16,
@@ -80,10 +85,6 @@ const styles = StyleSheet.create({
     letterSpacing: -0.015,
   },
   orderSummaryTotal: {
-    fontWeight: 'normal',
-    fontSize: 14,
-    lineHeight: 15,
-    letterSpacing: -0.015,
     color: '#FFF',
     marginLeft: -5,
   },
