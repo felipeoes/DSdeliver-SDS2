@@ -1,12 +1,12 @@
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { fetchProducts, saveOrder } from '../api';
 import Header from '../Header';
 import { checkIsSelected } from '../helpers';
 import ProductsList from '../ProductsList';
-import {  OrderLocationData, Product } from '../types';
+import { OrderLocationData, Product } from '../types';
 import StepsHeader from '../StepsHeader'
 import Toast from 'react-native-simple-toast';
 import OrderLocation from '../OrderLocation';
@@ -25,29 +25,40 @@ function Orders() {
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [orderLocation, setOrderLocation] = useState<OrderLocationData>();
   const totalPrice = selectedProducts.reduce((sum, item) => {
-      return sum + item.price;
+    return sum + item.price;
   }, 0);
+  const [isLoading, setIsLoading] = useState(false);
+  const isFocused = useIsFocused();
 
-  useEffect(() => {
+  const fetchData = () => {
+    setIsLoading(true);
     fetchProducts()
       .then((response) => setProducts(response.data))
       .catch((error) => {
         Toast.showWithGravity('Erro ao listar produtos', Toast.LONG, Toast.TOP);
       })
-  }, []);
-  
+      .finally(() => setIsLoading(false));
+  }
+
+  useEffect(() => {
+    if (isFocused) {
+      fetchData();
+    }
+  }, [isFocused]);
+
   const handleOnPress = () => {
     navigation.navigate('Orders');
   }
 
-  
+
 
   const handleSelectProduct = (product: Product) => {
     const isAlreadySelected = checkIsSelected(selectedProducts, product);
-  
+
     if (isAlreadySelected) {
       const selected = selectedProducts.filter(item => item.id !== product.id);
       setSelectedProducts(selected);
+
     } else {
       setSelectedProducts(previous => [...previous, product]);
     }
@@ -61,34 +72,37 @@ function Orders() {
     }
 
     saveOrder(payload).then((response) => {
-        Toast.show(`Pedido enviado com sucesso! Nº ${response.data.id}`);
-        setSelectedProducts([]);
+      Toast.showWithGravity(`Pedido enviado com sucesso! Nº ${response.data.id}`, Toast.LONG, Toast.BOTTOM);
+      setSelectedProducts([]);
+    })
+      .catch(() => {
+        Toast.showWithGravity('Erro ao enviar pedido', Toast.LONG, Toast.TOP);
       })
-        .catch(() => {
-          Toast.showWithGravity('Erro ao enviar pedido', Toast.LONG, Toast.TOP);
-        })
-    }
+  }
 
   return (
     <>
       <Header />
       <StepsHeader />
       <ScrollView style={styles.container}
-      keyboardShouldPersistTaps='always'>
-      <ProductsList 
-        products={products} 
-        onSelectProduct={handleSelectProduct}
-        selectedProducts={selectedProducts}
-        />
-        <OrderLocation 
-        onChangeLocation={(location) => setOrderLocation(location)} 
-        />
-
-        <OrderSummary 
-        amount={selectedProducts.length} 
-        totalPrice={totalPrice} 
-        onSubmit={handleSubmit}
-        />
+        keyboardShouldPersistTaps='always'>
+        {isLoading ? (
+          <View style={styles.waitingTextContainer}>
+            <Text style={styles.waitingText}>Buscando pedidos...</Text>
+          </View>
+        ) : (
+            <>
+              <ProductsList
+                products={products}
+                onSelectProduct={handleSelectProduct}
+                selectedProducts={selectedProducts} /><OrderLocation
+                onChangeLocation={(location) => setOrderLocation(location)} />
+              <OrderSummary
+                amount={selectedProducts.length}
+                totalPrice={totalPrice}
+                onSubmit={handleSubmit} />
+            </>
+          )}
       </ScrollView>
     </>
   );
@@ -99,6 +113,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     paddingRight: '5%',
     paddingLeft: '5%',
+  },
+  waitingTextContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 400
+  },
+  waitingText: {
+    fontSize: 30,
+    fontWeight: 'bold'
   }
 });
 

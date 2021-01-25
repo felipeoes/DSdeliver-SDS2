@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./Home";
 import Orders from './Orders';
 import Map from './OrderLocation';
-import MapBR from './MapBR';
 
 const Stack = createStackNavigator();
 
