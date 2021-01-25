@@ -4,7 +4,7 @@ import "./styles.css";
 import StepsHeader from "./StepsHeader";
 import ProductsList from "./ProductsList";
 import OrderSummary from "./OrderSummary";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { OrderLocationData, Product } from "./types";
 import { fetchProducts, saveOrder } from "../api";
 import OrderLocation from "./OrderLocation";
